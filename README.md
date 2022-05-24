@@ -1,5 +1,7 @@
 # Basic API routes example
 
+I'm using <a  href='https://swapi.dev/'>The StarWas API</a>
+
 Next.js ships with [API routes](https://nextjs.org/docs/api-routes/introduction) which provides an easy solution to build your own `API`. This example shows how to create multiple `API` endpoints with serverless functions, which can execute independently.
 
 ## Deploy your own
@@ -21,3 +23,6 @@ pnpm create next-app -- --example api-routes api-routes-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+## Demo
+Visit : https://api-routes-sage.vercel.app/
