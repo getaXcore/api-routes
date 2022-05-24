@@ -1,6 +1,6 @@
 import Person from '../components/Person'
 import usePeople from '../components/usePeople'
-import { useState } from 'react/cjs/react.development'
+import { useState } from 'react'
 
 export default function Index() {
   const [pageIndex, setPageIndex] = useState(1)
