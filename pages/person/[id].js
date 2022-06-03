@@ -1,54 +1,56 @@
 import { useRouter } from 'next/router'
-import { usePeopleByName } from '../../components/usePeople'
-import Link from 'next/link'
+import { usePeople } from '../../components/usePeople'
+import Layout from '../../components/layout'
 
 export default function Person() {
+  let people = new usePeople()
   const { query } = useRouter()
-  const {data, isLoading, isError} = usePeopleByName(`${query.id}`)
+  const {data, isLoading, isError} = people.usePeopleByName(`${query.id}`,1)
+  const router = useRouter()
+  //const currentState = query.page
   
-  if(isError) return <div>{error.message}</div>
-  if(isLoading) return <div>Loading...</div>
+  if(isError) return <Layout home><div>{error.message}</div></Layout>
+  if(isLoading) return <Layout home><div>Loading...</div></Layout>
 
   return (
-    <div className="container flex justify-center mx-auto">
-      <div className="flex flex-col">
-        <div className="w-full">
-          <div className="border-b border-gray-200 shadow">
-            <table className='hover:table-auto'>
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-2 text-xs text-gray-500">Name</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Height</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Mass</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Hair color</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Skin color</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Eye color</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Gender</th>
-                  <th className="px-6 py-2 text-xs text-gray-500">Birth Year</th>
-                </tr>
-              </thead>
-              <tbody className='bg-white'>
-                <tr className='whitespace-nowrap'>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].name}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].height}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].mass}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].hair_color}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].skin_color}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].eye_color}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].gender}</div></td>
-                  <td className='px-6 py-4'><div className="text-sm text-gray-900">{data.results[0].birth_year}</div></td>
-                </tr>
-                <tr className='whitespace-nowrap'>
-                  <td colSpan={7} className='px-6 py-4'>
-                    <Link href="/"><a className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2'>Return</a></Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <Layout home>
+    <section className='relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10'>
+      <div className='border-b border-gray-200 shadow"'>
+       
+        <div className="text-2xl font-bold uppercase text-center text-gray-900 bg-white">{data[0].name}</div>
       </div>
-    </div>
-    
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Height</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].height}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Mass</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].mass}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Hair color</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].hair_color}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Skin color</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].skin_color}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Eye color</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].eye_color}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Gender</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].gender}</div>
+      </div>
+      <div className='border-b border-gray-200 shadow"'>
+        <div className='className="px-6 py-2 text-xs text-gray-500 bg-gray-50'>Birth Year</div>
+        <div className="text-sm text-gray-900 bg-white">{data[0].birth_year}</div>
+      </div>
+      <div className='px-6 py-4'>
+        <button onClick={() => router.push('/')} className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2'>Return</button>
+      </div>
+    </section>
+  </Layout>  
   )
 }
