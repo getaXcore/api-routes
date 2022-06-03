@@ -2,13 +2,12 @@ import {useRef} from 'react'
 //import Layout from './layout';
 //import { usePeople } from './usePeople';
 import Router from 'next/router'
-import { useState } from 'react'
+//import { useState } from 'react'
 
 
 export default function LayoutSearch({head}){
     const searchForm = useRef(null)
-    const onSubmitted = (event) => {
-        event.preventDefault();
+    const onSubmitted = () => {
         const form = searchForm.current;
         const valname = form['txtSearch'].value
 
@@ -61,7 +60,7 @@ export default function LayoutSearch({head}){
             <form className="w-full max-w-sm" ref={searchForm}>
                 <div className="flex items-center border-b border-teal-500 py-2">
                     <input name='txtSearch' className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="find your favorite character" aria-label="Full name" required/>
-                    <button type='button' name='search' onClick={onSubmitted} className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded">
+                    <button type='button' name='search' onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault}} onKeyPress={(e) => {e.key === 'Enter' && e.preventDefault}} onClick={onSubmitted} className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded">
                     GO
                     </button>
                 </div>
