@@ -9,7 +9,7 @@ export default function Index() {
   //const { query } = useRouter()
   //const currentState = query.page ? query.page : 1
   const [pageIndex, setPageIndex] = useState(1)
-  const {data, isLoading, isError} = people.usePeopleAll(`${pageIndex}`)
+  const {data, isNext, isLoading, isError} = people.usePeopleAll(`${pageIndex}`)
 
   if(isError) return <Layout home><div>Failed to load</div></Layout>
   if(isLoading) return <Layout home><div>Loading...</div></Layout>
@@ -28,7 +28,7 @@ export default function Index() {
       </section>
       <section className='p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4'>
         <button className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2' onClick={() => setPageIndex(pageIndex - 1)} disabled={pageIndex == 1}>Previous</button>
-        <button className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2' onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+        <button className='px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2' onClick={() => setPageIndex(pageIndex + 1)} disabled={isNext[0].next == null}>Next</button>
       </section>
     </Layout>
   )
