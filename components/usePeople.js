@@ -1,6 +1,6 @@
 import useSWR from "swr";
+import { PersonModel } from "../models/PersonModel.js";
 
-//const fetcher = (url) => fetch(url).then((res) => res.json())
 const fetcher = async (url) => {
     const res = await fetch(url)
     const data = await res.json()
@@ -10,34 +10,42 @@ const fetcher = async (url) => {
     }
     return data
 }
-  
 
-export default function usePeople(pageIndex){
-    const {data, error} = useSWR(`https://swapi.dev/api/people/?page=${pageIndex}`,fetcher)
+export class usePeople{
 
-    return{
-        data: data,
-        isLoading: !error && !data,
-        isError: error
+    usePeopleAll(pageIndex){
+        const {data, error} = useSWR(`https://swapi.dev/api/people/?page=${pageIndex}`,fetcher)
+        let nData = []
+        if(data){
+            data.results.forEach(function newData(element,Index){
+                nData.push(new PersonModel(element.name,element.height,element.mass,element.hair_color,element.skin_color,element.eye_color,element.birth_year,element.gender))
+            });
+        }
+
+        return{
+            data: nData,
+            isLoading: !error && !data,
+            isError: error
+        }
     }
-}
-
-export function usePeopleById(id){
-    const {data, error} = useSWR(`https://swapi.dev/api/people/${id}`,fetcher)
-
-    return{
-        data: data,
-        isLoading: !error && !data,
-        isError: error
-    }
-}
-
-export function usePeopleByName(id){
-    const {data, error} = useSWR(`https://swapi.dev/api/people/?search=${id}`,fetcher)
-
-    return{
-        data: data,
-        isLoading: !error && !data,
-        isError: error
+    usePeopleByName(id,pageIndex){
+        const {data, error} = useSWR(`https://swapi.dev/api/people/?search=${id}&page=${pageIndex}`,fetcher)
+        let nData = []
+        let nNext = []
+        if(data){
+            data.results.forEach(function newData(element,Index){
+                nData.push(new PersonModel(element.name,element.height,element.mass,element.hair_color,element.skin_color,element.eye_color,element.birth_year,element.gender))
+            });
+            
+            nNext.push({next:data.next})
+            
+        }
+        
+        return{
+            data: nData,
+            isNext: nNext,
+            isLoading: !error && !data,
+            isError: error
+        }
     }
 }
